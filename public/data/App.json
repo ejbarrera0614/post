@@ -1,0 +1,66 @@
+{
+	"food": [
+		{
+			"id": 1,
+            "name": "Hamburguesa Odin",
+			"description": "La hamburguesa mas poderosa.",
+			"comments": [
+				{
+					"author" : "Jhon F. Kennedy",
+					"comment": "Es rica, pero no del todo",
+					"rate": 4
+				},
+				{
+					"author" : "Mr. Wick",
+					"comment": "A mi perro no le gustó",
+					"rate": 1
+				},
+				{
+					"author" : "Thor",
+					"comment": "Casi tan poderosa como la mía",
+					"rate": 4
+				},
+				{
+					"author" : "Loki",
+					"comment": "Demasiada anticuada",
+					"rate": 1
+				}
+			]
+		},
+		{
+			"id": 2,
+            "name": "Hamburguesa Valkyria",
+			"description": "Especialmente para guerreras como ella.",
+			"comments": [
+				{
+					"author" : "Anónimo",
+					"comment": "Hay mejores",
+					"rate": 3
+				},
+				{
+					"author" : "Anónimo",
+					"comment": "Excelente",
+					"rate": 5
+				}
+			]
+		},
+		{
+			"id": 2,
+            "name": "Hamburguesa Del Dios del Trueno",
+			"description": "Especialmente para guerreras como ella.",
+			"comments": [
+				{
+					"author" : "Thor",
+					"comment": "La mejor creación de los Dioses",
+					"rate": 3
+				},
+				{
+					"author" : "Loki",
+					"comment": "Pesima, le colocaría -1 milenio si fuera posible.",
+					"rate": 1
+				}
+			]
+		}
+	],
+	"status" : 200
+}

@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { FoodApp } from './FoodApp';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <h1>Hola, esta sera una app web de comida</h1>
-  </React.StrictMode>,
-  document.getElementById('root')
+	<React.StrictMode>
+		<FoodApp />
+	</React.StrictMode>,
+	document.getElementById('root'),
 );
