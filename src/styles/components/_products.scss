@@ -1,0 +1,86 @@
+.product-banner {
+  background-color: $primary;
+  height: $banner-h;
+  padding-right: $padding-primary;
+  padding-left: $padding-primary;
+  display: flex;
+  align-items: center;
+}
+.product-title {
+  text-shadow: 2px 2px 2px $secondary;
+  color: $white;
+  cursor: pointer;
+  font-size: $size-titles;
+  text-decoration: none;
+  transition: color 0.3s ease-in;
+  display: inline-block;
+  font-weight: bold;
+  &:hover {
+    color: darken($color: $white, $amount: 10);
+  }
+}
+.product-section {
+  background-color: $content-bg;
+  height: calc(100% - #{$banner-h});
+  padding-left: $padding-secondary;
+  padding-right: $padding-secondary;
+  padding-top: $padding-top-separator;
+  .content {
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+  }
+}
+
+.product-article {
+  width: 350px;
+  height: 350px;
+  border-radius: $border-card;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  margin: 0 35px 35px 0;
+  background-color: $lighten-secondary-10;
+  position: relative;
+  img {
+    height: auto;
+    max-height: 80%;
+    width: auto;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+  .info {
+    background-color: $white;
+    border-radius: 3px;
+    padding: 10px;
+    height: 100%;
+    overflow: hidden;
+    transition: transform 0.4s, border-radius 0.15s ;
+    &:hover {
+      transform: translateY(-80%);
+      border-radius: $border-card;
+    }
+    .title {
+      display: flex;
+      justify-content: space-between;
+      span {
+        cursor: pointer;
+      }
+    }
+    .link {
+      background-color: $white;
+      width: 100%;
+      padding-bottom: 3px;
+      bottom: 0;
+      position: absolute;
+      a {
+        text-decoration: none;
+        color: $lighten-secondary-10;
+        &:hover {
+          color: darken($color: $secondary, $amount: 5);
+        }
+      }
+    }
+  }
+}

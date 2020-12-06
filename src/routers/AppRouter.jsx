@@ -6,16 +6,16 @@ import {
 	Redirect,
 } from 'react-router-dom';
 import { Login } from '../components/account/Login';
-import { ProductsList } from '../components/products/ProductsList';
 import { constantsApp } from '../config/constant';
+import { ProductsRouter } from './ProductsRouter';
 
 export const AppRouter = () => {
 	console.log('render AppRouter');
 	return (
 		<Router>
-			<div>
+			<div className="main">
 				<Switch>
-					<Route path={constantsApp.ROUTE_PRODUCTS} component={ProductsList} />
+					<Route path={constantsApp.ROUTE_PRODUCTS} component={ProductsRouter} />
 					<Route path={constantsApp.ROUTE_LOGIN} component={Login} />
 					<Redirect to={constantsApp.ROUTE_PRODUCTS} />
 				</Switch>

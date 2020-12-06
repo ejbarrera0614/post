@@ -1,5 +1,18 @@
-
 // Colors
-$primary: #5C62C5;
-$dark-grey: #363636;
+$primary: #F6BC5B;
+$secondary: #912f30;
+$lighten-secondary-10: lighten($color: $secondary, $amount: 10);
+$thir-bg: #210406;
+$content-bg: #f7f2e8;
+$white: #fff;
 $light-grey: #d8d8d8;
+$dark-grey: #363636;
+
+
+//tamaños
+$size-titles: 30px;
+$banner-h: 80px;
+$border-card: 13px 13px 3px 3px;;
+$padding-primary: 10vw;
+$padding-secondary: 15vw;
+$padding-top-separator: 30px;
