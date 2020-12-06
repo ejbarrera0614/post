@@ -27,18 +27,22 @@
   padding-top: $padding-top-separator;
   .content {
     display: flex;
-    justify-content: start;
+    justify-content: space-between;
     flex-wrap: wrap;
+    &:after {
+      content: '';
+      flex: auto;
+    }
   }
 }
 
 .product-article {
-  width: 350px;
-  height: 350px;
+  width: $size-card;
+  height: $size-card;
   border-radius: $border-card;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   overflow: hidden;
-  margin: 0 35px 35px 0;
+  margin: 0 $margin-card 35px $margin-card;
   background-color: $lighten-secondary-10;
   position: relative;
   img {
@@ -53,14 +57,17 @@
   .info {
     background-color: $white;
     border-radius: 3px;
-    padding: 10px;
+    padding: $p-info-card;
     height: 100%;
     overflow: hidden;
-    transition: transform 0.4s, border-radius 0.15s ;
-    &:hover {
+    transition: transform 0.4s, border-radius 0.15s;
+    &:hover, .open {
       transform: translateY(-80%);
       border-radius: $border-card;
-    }
+    }.open {
+        transform: translateY(-80%) !important;
+        border-radius: $border-card;
+      }
     .title {
       display: flex;
       justify-content: space-between;
@@ -68,18 +75,21 @@
         cursor: pointer;
       }
     }
-    .link {
-      background-color: $white;
-      width: 100%;
-      padding-bottom: 3px;
-      bottom: 0;
-      position: absolute;
-      a {
-        text-decoration: none;
-        color: $lighten-secondary-10;
-        &:hover {
-          color: darken($color: $secondary, $amount: 5);
-        }
+  }
+
+  .link {
+    background-color: $white;
+    width: 100%;
+    padding: $p-info-card;
+    padding-bottom: 3px;
+    padding-top: 0px;
+    bottom: 0;
+    position: absolute;
+    a {
+      text-decoration: none;
+      color: $lighten-secondary-10;
+      &:hover {
+        color: darken($color: $secondary, $amount: 5);
       }
     }
   }
