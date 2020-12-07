@@ -3,7 +3,10 @@ import React from 'react';
 import { ContentLoading } from '../commons/ContentLoading';
 import { ContentTitle } from '../commons/ContentTitle';
 //hooks
-import { useGetSingleProduct } from '../../firebase/productFirebase';
+import {
+  useGetSingleProduct,
+  useGetComments,
+} from '../../firebase/productFirebase';
 //resource
 import imgDefault from '../../images/default2.png';
 
@@ -17,16 +20,41 @@ export const ProductView = ({
     loading,
     error,
   } = useGetSingleProduct(productId);
+
+  const {
+    data,
+    loading: loadingComments,
+    error: errorComments,
+  } = useGetComments(productId);
+
   return (
     <>
       {!loading ? (
         <>
           <ContentTitle title={name} />
-          <section>
+          <section className='single-content'>
             <img src={imgDefault} alt={name} />
-			<p>{price}</p>
-			<p>{description}</p>
+            <h4>${price}</h4>
+            <p>{description}</p>
           </section>
+          <hr />
+          {!loadingComments ? (
+            <section className='comments'>
+              {data.map(({ author, comment, rate }) => {
+                return (
+                  <div className='comment my-2'>
+                    <div className="profile">
+                      <div className='profile-img'></div>
+                      <h5>{author}</h5>
+                    </div>
+                    <p>{comment}</p>
+                  </div>
+                );
+              })}
+            </section>
+          ) : (
+            <ContentLoading />
+          )}
         </>
       ) : (
         <ContentLoading />

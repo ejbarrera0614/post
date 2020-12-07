@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import db from './config';
 const collection = db.collection('products');
+const collectionComments = db.collection('comments');
 
 const initialState = {
   data: null,
@@ -44,6 +45,7 @@ export const useGetAllProducts = () => {
       }
       getproducts();
     } catch (error) {
+      console.log('eerro catch');
       setState({
         data: null,
         loading: false,
@@ -83,6 +85,52 @@ export const useGetSingleProduct = (id) => {
             });
           }
         });
+      }
+      getproducts();
+    } catch (error) {
+      setState({
+        data: null,
+        loading: false,
+        error: error,
+      });
+    }
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
+  return state;
+};
+
+export const useGetComments = (id) => {
+  //Ref para evitar que se genere un error al desmontarse un componente antes que la peticion responda
+  const [state, setState] = useState({
+    data: productInterface,
+    loading: true,
+    error: null,
+  });
+  const isMounted = useRef(true);
+
+  /**
+   * Validacion que evita que se mute el estado en caso que el componente que llamo este hook sea desmontado
+   */
+  useEffect(() => {
+    try {
+      const comments = [];
+      async function getproducts() {
+        const querySnapshot = await collectionComments
+          .where('productId', '==', id)
+          .get();
+        querySnapshot.forEach((snap) => {
+          comments.push(snap.data());
+        });
+        if (isMounted.current) {
+          setState({
+            data: comments,
+            loading: false,
+            error: null,
+          });
+        }
       }
       getproducts();
     } catch (error) {
