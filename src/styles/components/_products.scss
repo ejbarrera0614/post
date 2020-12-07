@@ -21,7 +21,8 @@
 }
 .product-section {
   background-color: $content-bg;
-  height: calc(100% - #{$banner-h});
+  height: auto;
+  min-height: calc(100% - #{$banner-h});
   padding-left: $padding-secondary;
   padding-right: $padding-secondary;
   padding-top: $padding-top-separator;
@@ -61,13 +62,10 @@
     height: 100%;
     overflow: hidden;
     transition: transform 0.4s, border-radius 0.15s;
-    &:hover, .open {
+    &:hover {
       transform: translateY(-80%);
       border-radius: $border-card;
-    }.open {
-        transform: translateY(-80%) !important;
-        border-radius: $border-card;
-      }
+    }
     .title {
       display: flex;
       justify-content: space-between;
