@@ -10,6 +10,8 @@ import {
 } from '../../firebase/productFirebase';
 //resource
 import imgDefault from '../../images/default2.png';
+import userICon from '../../images/userIcon.png';
+import { useForm } from '../../hooks/useForm';
 
 export const ProductView = ({
   match: {
@@ -19,14 +21,12 @@ export const ProductView = ({
   const {
     data: { id, name, description, price },
     loading,
-    error,
   } = useGetSingleProduct(productId);
 
   const {
     action: actionGetComments,
     data,
-    loading: loadingComments,
-    error: errorComments,
+    loading: loadingComments
   } = useGetComments(productId);
 
   const {
@@ -35,64 +35,74 @@ export const ProductView = ({
     error: errorAddComment,
   } = useAddComment();
 
+  const [formValues, handleInputChange, reset] = useForm({
+    comment: '',
+  });
+
+  const { comment } = formValues;
+
   const handleSubmit = (e) => {
     e.preventDefault();
     actionAddComment({
-      author: 'anonimo',
-      comment: 'probando',
+      author: 'Anónimo',
+      comment: comment,
       productId: id,
       rate: 5,
     });
-    if(!errorAddComment){
-      console.log('asdasd');
+    if (!errorAddComment) {
+      reset();
       actionGetComments();
     }
   };
 
   return (
     <>
-      {!loading ? (
-        <>
-          <ContentTitle title={name} />
-          <section className='single-content'>
-            <img src={imgDefault} alt={name} />
-            <h4>${price}</h4>
-            <p>{description}</p>
-          </section>
-          <hr className='my-2' />
-          <h3 className='mb-1'>Escribe tu comentario</h3>
-          <form onSubmit={handleSubmit} className='comment-form'>
-            <textarea
-              name='comment'
-              placeholder='Escribe tu comentario...'
-              autoComplete='off'
-              rows='1'
-              className='comment'
-              maxLength='180'
-            ></textarea>
-            <button>Comentar</button>
-          </form>
-          {!loadingComments ? (
-            <section className='comments'>
-              {data.map(({ author, comment, id }) => {
-                return (
-                  <div className='comment my-2' key={id}>
-                    <div className='profile'>
-                      <div className='profile-img'></div>
-                      <h5>{author}</h5>
-                    </div>
-                    <p>{comment}</p>
+      <ContentTitle title={name} />
+      <section className='single-content'>
+        <ContentLoading isLoading={loading}>
+          <img src={imgDefault} alt={name} />
+          <h4>${price}</h4>
+          <p>{description}</p>
+        </ContentLoading>
+      </section>
+      <hr className='my-2' />
+      <h3 className='mb-1'>Escribe tu comentario</h3>
+      <form onSubmit={handleSubmit} className='comment-form'>
+        <textarea
+          name='comment'
+          placeholder='Escribe tu comentario...'
+          autoComplete='off'
+          rows='1'
+          className='comment'
+          maxLength='180'
+          value={comment}
+          onChange={handleInputChange}
+        ></textarea>
+
+        <ContentLoading isLoading={loadingAddComment}>
+          <button type='submit'>Comentar</button>
+        </ContentLoading>
+      </form>
+      <section className='comments'>
+        <ContentLoading isLoading={loadingComments}>
+          {data &&
+            data.map(({ author, comment, id }) => {
+              return (
+                <div className='comment my-2' key={id}>
+                  <div className='profile text-center'>
+                    <img
+                      className='profile-img'
+                      src={userICon}
+                      alt={author}
+                    ></img>
+                    <h5>{author}</h5>
                   </div>
-                );
-              })}
-            </section>
-          ) : (
-            <ContentLoading />
-          )}
-        </>
-      ) : (
-        <ContentLoading />
-      )}
+                  <p>{comment}</p>
+                </div>
+              );
+            })}
+        </ContentLoading>
+      </section>
     </>
   );
 };

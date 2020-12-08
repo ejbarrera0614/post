@@ -1,9 +1,18 @@
-import React from 'react'
+import React from 'react';
 
-export const ContentLoading = () => {
-    return (
-        <div>
-            Cargando
+export const ContentLoading = ({ children, isLoading = true }) => {
+  return (
+    <>
+      {isLoading ? (
+        <div className='lds-ring'>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
         </div>
-    )
-}
+      ) : (
+        <>{children}</>
+      )}
+    </>
+  );
+};

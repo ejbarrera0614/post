@@ -1,14 +1,11 @@
 import { useState, useEffect, useRef, useContext } from 'react';
+import { useHistory } from 'react-router';
+
+import { constantsApp } from '../config/constant';
 import AppContext from '../context/AppContext';
 import db from './config';
 const collection = db.collection('products');
 const collectionComments = db.collection('comments');
-
-const initialState = {
-  data: null,
-  loading: true,
-  error: null,
-};
 
 const productInterface = {
   id: null,
@@ -18,7 +15,11 @@ const productInterface = {
 };
 export const useGetAllProducts = () => {
   //Ref para evitar que se genere un error al desmontarse un componente antes que la peticion responda
-  const [state, setState] = useState(initialState);
+  const [state, setState] = useState({
+    data: [],
+    loading: true,
+    error: null,
+  });
   const isMounted = useRef(true);
 
   useEffect(() => {
@@ -45,7 +46,6 @@ export const useGetAllProducts = () => {
       }
       getproducts();
     } catch (error) {
-      console.log('eerro catch');
       setState({
         data: null,
         loading: false,
@@ -97,6 +97,7 @@ export const useGetSingleProduct = (id) => {
     return () => {
       isMounted.current = false;
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return state;
@@ -104,7 +105,6 @@ export const useGetSingleProduct = (id) => {
 
 export const useGetComments = (id) => {
   const action = () => {
-    console.log(id);
     try {
       const comments = [];
       async function getproducts() {
@@ -133,10 +133,9 @@ export const useGetComments = (id) => {
       });
     }
   };
-  //Ref para evitar que se genere un error al desmontarse un componente antes que la peticion responda
   const [state, setState] = useState({
     action: action,
-    data: productInterface,
+    data: [],
     loading: true,
     error: null,
   });
@@ -151,6 +150,7 @@ export const useGetComments = (id) => {
     return () => {
       isMounted.current = false;
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return state;
@@ -180,7 +180,6 @@ export const useUpdateProduct = (payload) => {
           loading: false,
           error: 'Ocurrio un error',
         });
-        console.log('error al actualizar');
       });
   };
   const [state, setState] = useState({
@@ -194,7 +193,6 @@ export const useUpdateProduct = (payload) => {
 
 export const useAddComment = () => {
   const action = (payload) => {
-    console.log(payload);
     collectionComments
       .add(payload)
       .then((ref) => {
@@ -204,7 +202,6 @@ export const useAddComment = () => {
             loading: false,
             error: null,
           });
-          console.log('Your extra id field has been created');
         });
       })
       .catch(() => {
@@ -213,7 +210,6 @@ export const useAddComment = () => {
           loading: false,
           error: 'Ocurrio un error',
         });
-        console.log('error al actualizar');
       });
   };
   const [state, setState] = useState({
@@ -237,10 +233,11 @@ export const useAddProduct = () => {
             error: null,
           });
           setStateModal({
-            title:'Producto creado',
+            title: 'Producto creado',
             desc: 'Se ha creado el proucto',
-            isShow: true
-          })
+            isShow: true,
+          });
+          history.push(constantsApp.ROUTE_PRODUCTS);
         });
       })
       .catch(() => {
@@ -253,6 +250,7 @@ export const useAddProduct = () => {
   };
 
   const { setStateModal } = useContext(AppContext);
+  const history = useHistory();
   const [state, setState] = useState({
     action,
     loading: false,

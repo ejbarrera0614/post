@@ -5,6 +5,9 @@
   padding-left: $padding-primary;
   display: flex;
   align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 999;
   .product-title {
     text-shadow: 2px 2px 2px $secondary;
     color: $white;
@@ -46,17 +49,24 @@
     }
   }
   .comments {
+    overflow-y: scroll;
     .comment {
       display: flex;
+      border-top: 1px solid #000;
+      padding-top: 15px;
       p {
         margin-left: 10px;
+        margin-top: 5px;
+      }
+
+      .profile {
+        width: 75px;
       }
     }
     .profile-img {
       display: inline-block;
       height: 42px;
       width: 42px;
-      background-color: lighten($color: $third, $amount: 20);
     }
   }
   .comment-form {

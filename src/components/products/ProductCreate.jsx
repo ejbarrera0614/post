@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 //components
 import { ContentTitle } from '../commons/ContentTitle';
@@ -9,10 +9,10 @@ import { useAddProduct } from '../../firebase/productFirebase';
 //resources
 import imgDefault from '../../images/default2.png';
 import { useForm } from '../../hooks/useForm';
+import { ContentLoading } from '../commons/ContentLoading';
 
 export const ProductCreate = () => {
-
-  const { loading, action, error } = useAddProduct();
+  const { loading, action } = useAddProduct();
   const [formValues, handleInputChange] = useForm({
     name: '',
     description: '',
@@ -71,7 +71,9 @@ export const ProductCreate = () => {
               onChange={handleInputChange}
             />
           </div>
-          <button type='submit'>Añadir</button>
+          <ContentLoading isLoading={loading}>
+            <button type='submit'>Añadir</button>
+          </ContentLoading>
         </div>
       </form>
     </>

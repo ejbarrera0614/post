@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 
 export const useFetch = (url) => {
-  console.log('useFetch::start');
   //Ref para evitar que se genere un error al desmontarse un componente antes que la peticion responda
   const isMounted = useRef(true);
   const [state, setState] = useState({
