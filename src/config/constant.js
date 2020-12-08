@@ -1,8 +1,8 @@
 export const constantsApp = {
 	//RUTAS
 	ROUTE_PRODUCTS: '/productos',
+	ROUTE_PRODUCT_CREATE: '/productos/crear',
 	ROUTE_PRODUCT_VIEW: '/productos/:productId',
-	ROUTE_PRODUCT_CREATE: '/productos/:action',
 	ROUTE_LOGIN: '/iniciar-sesion',
 	ROUTE_ACCOUNT: '/mi-cuenta',
 	ROUTE_ERROR: '/error',

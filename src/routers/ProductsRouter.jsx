@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
+import { ProductCreate } from '../components/products/ProductCreate';
 import { ProductsList } from '../components/products/ProductsList';
 import { ProductView } from '../components/products/ProductView';
 import { constantsApp } from '../config/constant';
@@ -20,6 +21,11 @@ export const ProductsRouter = () => {
             exact
             path={constantsApp.ROUTE_PRODUCTS}
             component={ProductsList}
+          />
+          <Route
+            exact
+            path={constantsApp.ROUTE_PRODUCT_CREATE}
+            component={ProductCreate}
           />
           <Route
             exact

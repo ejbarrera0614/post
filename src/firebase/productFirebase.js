@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
+import AppContext from '../context/AppContext';
 import db from './config';
 const collection = db.collection('products');
 const collectionComments = db.collection('comments');
@@ -15,7 +16,6 @@ const productInterface = {
   description: '',
   price: null,
 };
-
 export const useGetAllProducts = () => {
   //Ref para evitar que se genere un error al desmontarse un componente antes que la peticion responda
   const [state, setState] = useState(initialState);
@@ -216,6 +216,43 @@ export const useAddComment = () => {
         console.log('error al actualizar');
       });
   };
+  const [state, setState] = useState({
+    action,
+    loading: false,
+    error: null,
+  });
+
+  return state;
+};
+
+export const useAddProduct = () => {
+  const action = (payload) => {
+    collection
+      .add(payload)
+      .then((ref) => {
+        ref.set({ id: ref.id }, { merge: true }).then(() => {
+          setState({
+            ...state,
+            loading: false,
+            error: null,
+          });
+          setStateModal({
+            title:'Producto creado',
+            desc: 'Se ha creado el proucto',
+            isShow: true
+          })
+        });
+      })
+      .catch(() => {
+        setState({
+          ...state,
+          loading: false,
+          error: 'Ocurrio un error',
+        });
+      });
+  };
+
+  const { setStateModal } = useContext(AppContext);
   const [state, setState] = useState({
     action,
     loading: false,

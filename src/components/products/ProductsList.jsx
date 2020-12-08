@@ -26,6 +26,7 @@ export const ProductsList = ({ history }) => {
             {data.map((item) => {
               return <ProductCard key={item.id} {...item} />;
             })}
+            <div className="product-article" style={{height:'0px'}}></div>
           </>
         ) : (
           <>
