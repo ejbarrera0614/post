@@ -103,18 +103,8 @@ export const useGetSingleProduct = (id) => {
 };
 
 export const useGetComments = (id) => {
-  //Ref para evitar que se genere un error al desmontarse un componente antes que la peticion responda
-  const [state, setState] = useState({
-    data: productInterface,
-    loading: true,
-    error: null,
-  });
-  const isMounted = useRef(true);
-
-  /**
-   * Validacion que evita que se mute el estado en caso que el componente que llamo este hook sea desmontado
-   */
-  useEffect(() => {
+  const action = () => {
+    console.log(id);
     try {
       const comments = [];
       async function getproducts() {
@@ -126,6 +116,7 @@ export const useGetComments = (id) => {
         });
         if (isMounted.current) {
           setState({
+            ...state,
             data: comments,
             loading: false,
             error: null,
@@ -135,11 +126,28 @@ export const useGetComments = (id) => {
       getproducts();
     } catch (error) {
       setState({
+        ...state,
         data: null,
         loading: false,
         error: error,
       });
     }
+  };
+  //Ref para evitar que se genere un error al desmontarse un componente antes que la peticion responda
+  const [state, setState] = useState({
+    action: action,
+    data: productInterface,
+    loading: true,
+    error: null,
+  });
+  const isMounted = useRef(true);
+
+  /**
+   * Validacion que evita que se mute el estado en caso que el componente que llamo este hook sea desmontado
+   */
+  useEffect(() => {
+    isMounted.current = true;
+    action();
     return () => {
       isMounted.current = false;
     };
@@ -149,6 +157,7 @@ export const useGetComments = (id) => {
 };
 
 export const useUpdateProduct = (payload) => {
+  //ASe declara antes del state por un error
   const action = () => {
     setState({
       ...state,
@@ -183,10 +192,35 @@ export const useUpdateProduct = (payload) => {
   return state;
 };
 
-/* add collection
-        .add({ name: 'probandpo', description: 'probando desc' })
-        .then((ref) => {
-          ref.set({ id: ref.id }, { merge: true }).then(() => {
-            console.log('Your extra id field has been created');
+export const useAddComment = () => {
+  const action = (payload) => {
+    console.log(payload);
+    collectionComments
+      .add(payload)
+      .then((ref) => {
+        ref.set({ id: ref.id }, { merge: true }).then(() => {
+          setState({
+            ...state,
+            loading: false,
+            error: null,
           });
-        }); */
+          console.log('Your extra id field has been created');
+        });
+      })
+      .catch(() => {
+        setState({
+          ...state,
+          loading: false,
+          error: 'Ocurrio un error',
+        });
+        console.log('error al actualizar');
+      });
+  };
+  const [state, setState] = useState({
+    action,
+    loading: false,
+    error: null,
+  });
+
+  return state;
+};

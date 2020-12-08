@@ -63,6 +63,35 @@
       background-color: lighten($color: $third, $amount: 20);
     }
   }
+  .comment-form {
+    display: flex;
+    flex-direction: row;
+
+    .comment {
+      overflow-x: hidden;
+      overflow-wrap: break-word;
+      height: 48px;
+      width: 100%;
+      margin-right: 16px;
+      resize: none;
+      padding: 10px;
+    }
+    button{
+      background-color: $primary;
+      transition: box-shadow .25s ease-out,background-color .2s ease-out;
+      box-shadow: 0px 0px 0px $primary;
+      border-color: transparent;
+      cursor: pointer;
+      outline: none;
+      border-radius: 3px;
+      &:hover{
+        background-color: darken($color: $primary, $amount: 10);
+      }
+      &:focus{
+        background-color: darken($color: $primary, $amount: 20);
+      }
+    }
+  }
 }
 
 .product-article {
