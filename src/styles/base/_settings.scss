@@ -1,27 +1,33 @@
-// Colors
-$primary: #F6BC5B;
-$secondary: #912f30;
-$lighten-secondary-10: lighten($color: $secondary, $amount: 10);
-$third: #210406;
-$content-bg: #f7f2e8;
-$white: #fff;
-$light-grey: #d8d8d8;
-$dark-grey: #363636;
 
+$primary: #ffffff;
+$secondary: #2eca74;
+$secondary-hover: darken($color: $secondary, $amount: 10);
+$third: #f4f4f4;
+$border-color: 1px solid #e5e5e3;
+$box-shadow-color: rgba(229, 229, 227, 0.8);
+$color-font-light: #bbbbbb;
+$lighten-secondary-10: lighten($color: $secondary, $amount: 10);
+$opacicty-disabled: 0.6;
 
 //tamaños
 $size-card: 350px;
 $size-titles: 30px;
 $banner-h: 80px;
+$min-width-inputs: 124px;
 $max-width-inputs: 248px;
-$height-inputs: 48px;
+$max-width-desc: 85%;
+$height-inputs: 36px;
 //borders
-$border-card: 13px 13px 3px 3px;
+$border-post: 4px 4px 4px 4px;
 $b-radius-3: 3px;
 $b-rdius-5: 5px;
 //margins
-$margin-17: 17px;
+$margin-betwwen-post: 17px;
 //paddings
+$padding-item: 15px;
+
+
+
 $padding-inputs: 10px;
 $padding-primary: 10vw;
 $padding-secondary: 15vw;

@@ -1,7 +1,8 @@
 @import './base/settings';
 @import './base/base';
+@import './base/animation';
 
 //Components
-@import './components/products';
-@import './components/modal';
+@import './components/comments';
+@import './components/post';
 @import './components/loading';

@@ -6,9 +6,9 @@ export const ContentTitle = ({ title, hideButtonCreate = false }) => {
   return (
     <>
       <div className='title-section'>
-        <h1>{title || 'Lista de productos'}</h1>
+        <h1>{title || 'Lista de publicaciones'}</h1>
         {!hideButtonCreate && (
-          <Link to={constantsApp.ROUTE_PRODUCT_CREATE}>
+          <Link to={constantsApp.ROUTE_POSTS}>
             <span>+</span> Crear Producto
           </Link>
         )}

@@ -1,8 +1,8 @@
 export const constantsApp = {
 	//RUTAS
-	ROUTE_PRODUCTS: '/productos',
-	ROUTE_PRODUCT_CREATE: '/productos/crear',
-	ROUTE_PRODUCT_VIEW: '/productos/:productId',
+	ROUTE_POSTS: '/',
+/* 	ROUTE_POST_CREATE: '/productos/crear',
+	ROUTE_POST_VIEW: '/productos/:productId', */
 	ROUTE_LOGIN: '/iniciar-sesion',
 	ROUTE_ACCOUNT: '/mi-cuenta',
 	ROUTE_ERROR: '/error',
@@ -12,5 +12,5 @@ export const constantsApp = {
 	ACTION_EDIT: 'editar',
 
 	//ENDPOINTS
-	ENDPOINT_PRODUCT_LIST: 'data/App.json',
+	ENDPOINT_LANG_ES: 'data/lang-es.json',
 };

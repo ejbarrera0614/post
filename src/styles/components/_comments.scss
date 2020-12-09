@@ -1,0 +1,64 @@
+.comments-list {
+  background-color: $third;
+  & > p {
+    padding-top: 15px;
+  }
+  .comment {
+    display: flex;
+    padding-top: 15px;
+    .comment-section {
+      padding-left: $padding-item;
+      padding-top: $padding-item;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      max-width: $max-width-desc;
+      & > * {
+        margin-right: 10px;
+        height: fit-content;
+      }
+    }
+
+    .profile {
+      width: 75px;
+    }
+  }
+}
+.comment-form {
+  display: flex;
+  flex-direction: row;
+  background-color: $third;
+  padding: $padding-item;
+
+  button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    padding-right: $padding-item;
+    background-color: $primary;
+    color: $secondary;
+    height: auto;
+    min-width: -webkit-fit-content;
+    min-width: -moz-fit-content;
+    min-width: fit-content;
+    &:hover:not([disabled]) {
+      background-color: $primary;
+      color: $secondary-hover;
+    }
+    &:disabled {
+      background-color: $primary;
+      opacity: 1;
+      span {
+        opacity: $opacicty-disabled;
+      }
+    }
+  }
+}
+.profile-img {
+  display: inline-block;
+  height: auto;
+  max-width: 70%;
+}

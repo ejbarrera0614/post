@@ -2,12 +2,12 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDpF1485ykFJf8D55s4OSvu9iQwDYHAzus',
-  authDomain: 'food-aap-830c9.firebaseapp.com',
-  projectId: 'food-aap-830c9',
-  storageBucket: 'food-aap-830c9.appspot.com',
-  messagingSenderId: '1085004078245',
-  appId: '1:1085004078245:web:bd6d1172b03f47e100c14c',
+  apiKey: "AIzaSyCNmqLe1d9z6esEbyQQ4wcIFA9EUA-Z0H4",
+  authDomain: "publicaciones-999c8.firebaseapp.com",
+  projectId: "publicaciones-999c8",
+  storageBucket: "publicaciones-999c8.appspot.com",
+  messagingSenderId: "551474545342",
+  appId: "1:551474545342:web:09126c401dd5f503f4d4ef"
 };
 
 firebase.initializeApp(firebaseConfig);
