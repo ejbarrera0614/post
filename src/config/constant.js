@@ -13,4 +13,15 @@ export const constantsApp = {
 
 	//ENDPOINTS
 	ENDPOINT_LANG_ES: 'data/lang-es.json',
+
+	//COLLECTIONS FIRESTORE
+	COLLECTION_POST: 'post-test',
+	COLLECTION_COMMENTS: 'comments',
+	COLLECTION_REACTIONS: 'reactions',
+	COLLECTION_USERS: 'user-test',
+
+	//REACTIONS
+	REACTION_LIKE: 'like',
+	REACTION_DISLIKE: 'dislike',
+	REACTION_AMAZING: 'amazing',
 };

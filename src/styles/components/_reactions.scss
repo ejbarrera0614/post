@@ -1,0 +1,115 @@
+.popover {
+  position: relative;
+  display: flex;
+  align-items: center;
+  & > p {
+    display: flex;
+    align-items: center;
+    & > img {
+      width: 24px;
+      height: auto;
+      margin-right: 5px;
+    }
+  }
+  .popover-content {
+    position: absolute;
+    left: -4%;
+    bottom: 140%;
+    background-color: $primary;
+    border: $border-color;
+    box-shadow: $box-shadow;
+    width: auto;
+    height: fit-content;
+    min-height: 40px;
+    max-height: 44px;
+    padding: 5px;
+    display: none;
+    visibility: hidden;
+    transition: visibility 0s, opacity 0.5s linear;
+    transition: 1s;
+    box-shadow: $box-shadow;
+    border-radius: $border-post;
+    .arrow {
+      left: 45%;
+      border-width: $border-row-width;
+      top: 100%;
+      width: 0;
+      height: 0;
+      border-color: $border-color-hex transparent transparent transparent;
+      border-style: solid;
+      position: absolute;
+      &::after {
+        content: ' ';
+        top: -11px;
+        position: absolute;
+        margin-left: -10px;
+        border-color: $primary transparent transparent transparent;
+        border-width: $border-row-width;
+        border-style: solid;
+      }
+    }
+
+    img {
+      width: 22px;
+      height: auto;
+      cursor: pointer;
+      margin-right: $margin-icons-reaction;
+
+      &::after {
+        width: 24px;
+        height: 24px;
+        background-color: #fcbf2a;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        margin-left: -5px;
+      }
+      &:nth-child(1) {
+        margin-left: 15px;
+      }
+      &:hover {
+        width: 28px;
+        height: 28px;
+      }
+    }
+  }
+  .trigger-popover:hover + .popover-content,
+  .popover-content:hover,
+  .active-hover,
+  .active-click {
+    visibility: visible;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.post-item-buttons:hover + .popover {
+  visibility: visible;
+}
+
+.reactions-group-circles {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  & > div {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 2px solid $primary;
+    margin-left: -5px;
+    &:nth-child(1) {
+      margin-left: 0;
+    }
+  }
+  .circle-likes {
+    background-color: #4a8aee;
+  }
+  .circle-dislike {
+    background-color: #fd575b;
+  }
+  .circle-amazing {
+    background-color: #fbbe2a;
+  }
+  p {
+    margin-left: 5px;
+  }
+}

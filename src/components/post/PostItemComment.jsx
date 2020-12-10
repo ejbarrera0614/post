@@ -9,9 +9,9 @@ export const PostItemComment = ({ nameAuthor, desc, date }) => {
         <img className='profile-img' src={userICon} alt={nameAuthor}></img>
       </div>
       <div className='comment-section'>
-        <h4>{nameAuthor}</h4>
-        <p>{desc}</p>
-        <p className="w-100">{dateFormat}</p>
+        <p className="title-name">{nameAuthor}</p>
+        <p >{desc}</p>
+        <p className="text-time w-100">{dateFormat}</p>
       </div>
     </div>
   );

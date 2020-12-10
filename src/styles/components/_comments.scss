@@ -13,6 +13,7 @@
       flex-direction: row;
       flex-wrap: wrap;
       max-width: $max-width-desc;
+      align-self: start;
       & > * {
         margin-right: 10px;
         height: fit-content;
@@ -56,9 +57,4 @@
       }
     }
   }
-}
-.profile-img {
-  display: inline-block;
-  height: auto;
-  max-width: 70%;
 }

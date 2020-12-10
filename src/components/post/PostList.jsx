@@ -4,7 +4,6 @@ import React from 'react';
 import { ContentLoading } from '../commons/ContentLoading';
 
 //config
-import { constantsApp } from '../../config/constant';
 
 //hooks
 import { useGetAllPost } from '../../firebase/postFirebase';

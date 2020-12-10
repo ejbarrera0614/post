@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 //hooks
 import { useForm } from '../../hooks/useForm';
 //components
@@ -6,36 +6,40 @@ import { ContentLoading } from '../commons/ContentLoading';
 import { PostItemComment } from './PostItemComment';
 //resources
 import userICon from '../../images/userIcon.png';
-import { useAddComment, useGetComments } from '../../firebase/postFirebase';
+import { useAddComment, useGetComments } from '../../firebase/commentsFirebase';
+import { ButtonsReaction } from './ButtonsReaction';
+import { constantsApp } from '../../config/constant';
 
-export const PostItem = ({ id, desc, nameAuthor, date, index }) => {
-  const dateFormat = new Date(date?.toDate()).toLocaleDateString();
-
+export const PostItem = ({ id, desc, nameAuthor, date }) => {
+  const [reactionsState, setReactionsState] = useState({
+    [constantsApp.REACTION_AMAZING]: 0,
+    [constantsApp.REACTION_DISLIKE]: 0,
+    [constantsApp.REACTION_LIKE]: 0,});
   //hook para el formulario de agrgar comentario
   const [value, handleInputChange, reset] = useForm({ comment: '' });
-  const { action, data, loading } = useGetComments(id);
+  const { action: actionGet, data } = useGetComments(id);
   const {
     action: actionAdd,
     loading: loadingAdd,
     isFirtsRender,
   } = useAddComment();
-
+  const dateFormat = new Date(date?.toDate()).toLocaleDateString();
   //Use effect que se ejecuta acciones
   useEffect(() => {
+    //Se valida con isFirtsRender de que no se ejecute la 1ra vez, solo en mutaciones del estado loadingAdd posteriores a este
     if (!isFirtsRender && !loadingAdd) {
       reset();
-      action();
+      actionGet();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadingAdd]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    actionAdd({
+    actionAdd(id, {
       date: new Date(),
       desc: value.comment,
       idAuthor: 'KWfShEgVFQoLdDoULkw8',
-      idPost: id,
       nameAuthor: 'Admin',
     });
     reset();
@@ -43,43 +47,61 @@ export const PostItem = ({ id, desc, nameAuthor, date, index }) => {
 
   return (
     <>
-      <div className={`post-item my-2 ${index === 0 && 'animate__fadeInDown'}`}>
+      <div className={`post-item my-2 `}>
         <div className='post-item-content'>
           <div className='item-profile'>
             <img className='profile-img' src={userICon} alt={nameAuthor}></img>
           </div>
           <div className='post-item-desc'>
             <div className='post-desc-group-name'>
-              <p className='post-item-name'>{nameAuthor}</p>
-              <p className='post-item-time'>{dateFormat}</p>
+              <p className='post-item-name title-name'>{nameAuthor}</p>
+              <p className='post-item-time text-time'>{dateFormat}</p>
             </div>
-            <p className='post-item-desc'>{desc}</p>
-            <div className='post-item-buttons'>
-              <button>Reaccionar</button>
-              <button>Comentar</button>
-            </div>
+            <p>{desc}</p>
+
+            <ButtonsReaction
+              idPost={id}
+              setReactionsState={setReactionsState}
+            />
           </div>
         </div>
+
         <div className='post-item-reaction'>
-          <p>Reacciones</p>
-          <p>{data.length} comentario{data.length > 1 && 's'}</p>
+          <div className='reactions-group-circles'>
+            {reactionsState?.like > 0 && <div className='circle-likes'></div>}
+            {reactionsState?.dislike > 0 && (
+              <div className='circle-dislike'></div>
+            )}
+            {reactionsState?.amazing > 0 && (
+              <div className='circle-amazing'></div>
+            )}
+            <p>
+              {reactionsState?.amazing +
+                reactionsState?.like +
+                reactionsState?.dislike}
+            </p>
+          </div>
+          <p>
+            {data.length > 0 && (
+              <>
+                {data.length} comentario{data.length > 1 && 's'}
+              </>
+            )}
+          </p>
         </div>
 
         <div className='comments-list'>
-          <ContentLoading isLoading={loading}>
-            {data?.length ? (
-              data.map((item, index) => {
-                return (
-                  <PostItemComment key={item.id} {...item} index={index} />
-                );
-              })
-            ) : (
-              <p>No hay comentarios</p>
-            )}
-          </ContentLoading>
+          {data &&
+            data.map((item, index) => {
+              return (
+                <div key={item.id}>
+                  <PostItemComment {...item} index={index} />
+                </div>
+              );
+            })}
         </div>
 
-        <form onSubmit={handleSubmit} className='comment-form'>
+        <form onSubmit={handleSubmit} className={`comment-form `}>
           <textarea
             name='comment'
             placeholder='Escribe un comentario'
