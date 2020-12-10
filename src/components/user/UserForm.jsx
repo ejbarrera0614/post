@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLogin } from '../../firebase/userFirebase';
+import { useLogin, useRegister } from '../../firebase/userFirebase';
 import { useForm } from '../../hooks/useForm';
 import { ContentLoading } from '../commons/ContentLoading';
 
@@ -13,12 +13,20 @@ export const UserForm = () => {
     action: actionLogin,
     loading
   } = useLogin();
+  const { action: actionRegister, loading: loadingRegister, isFirtsRender } = useRegister();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     actionLogin(value);
     reset();
   };
+
+  const handleClickRegister = (e) => {
+    e.preventDefault();
+    actionRegister({...value, isAdmin:false, dateCreated: new Date()});
+    reset();
+  };
+
   return (
     <>
       <form onSubmit={handleSubmit} className='form-login'>
@@ -54,7 +62,7 @@ export const UserForm = () => {
               Iniciar sesión
             </button>
             <p>o</p>
-            <button type='submit' disabled={!value.userName || !value.password}>
+            <button type='button' onClick={handleClickRegister} disabled={!value.userName || !value.password}>
               Registrarse
             </button>
           </div>

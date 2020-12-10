@@ -60,6 +60,17 @@ export const useGetReactions = (id) => {
 };
 export const useAddReaction = () => {
   const action = (idPost, payload) => {
+
+    if (!payload.idAuthor) {
+      setStateModal({
+        isShow: true,
+        title: 'Atención.',
+        desc: 'Debe iniciar sesión para poder reaccionar',
+        icon: 'info',
+      });
+      return;
+    }
+
     setState({
       ...state,
       loading: true,

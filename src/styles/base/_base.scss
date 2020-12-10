@@ -58,7 +58,8 @@ button {
 
 .main {
   width: 100%;
-  height: 100vh;
+  height: auto;
+  min-height: 100vh;
 }
 .ml-10{
   margin-left: 10px;

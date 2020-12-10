@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { constantsApp } from '../../config/constant';
 import AppContext from '../../context/AppContext';
 import { useAddPost } from '../../firebase/postFirebase';
 import { useForm } from '../../hooks/useForm';
@@ -24,14 +25,14 @@ export const PostItemCreate = ({ getAllPost }) => {
     action({
       date: new Date(),
       desc: value.post,
-      idAuthor: 'e3Op7jLzPe3gJIdbmmzH',
-      nameAuthor: 'Juan 2',
+      idAuthor: stateUser.id,
+      nameAuthor: stateUser.userName,
     });
   };
 
   return (
     <>
-      {Object.entries(stateUser).length ? (
+      {stateUser[constantsApp.IS_LOGGED] ? (
         <form onSubmit={handleSubmit} className='post-form'>
           <textarea
             name='post'

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import likeIcon from '../../images/like.svg';
 import dislikeIcon from '../../images/dislike.svg';
@@ -8,8 +8,11 @@ import {
   useGetReactions,
 } from '../../firebase/reactionsFirebase';
 import { constantsApp } from '../../config/constant';
+import AppContext from '../../context/AppContext';
 export const ButtonsReaction = ({ idPost, setReactionsState }) => {
   const [myReaction, setMyReaction] = useState('');
+  const { stateUser } = useContext(AppContext);
+
   const { action: actionGet, data } = useGetReactions(idPost);
   const {
     action: actionAdd,
@@ -31,9 +34,7 @@ export const ButtonsReaction = ({ idPost, setReactionsState }) => {
       (accum, { type, idAuthor }) => {
         if (!accum[type]) accum[type] = 0;
         accum[type] += 1;
-
-        if (idAuthor === 'KWfShEgVFQoLdDoULkw9') setMyReaction(type);
-
+        if (idAuthor === stateUser.id) setMyReaction(type);
         return accum;
       },
       {
@@ -45,6 +46,13 @@ export const ButtonsReaction = ({ idPost, setReactionsState }) => {
     setReactionsState(totalTypesReaction);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
+
+  useEffect(() => {
+    data.filter(({ type, idAuthor }) => {
+      if (idAuthor === stateUser.id) setMyReaction(type);
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stateUser]);
 
   //Para mantener o quitar en determinado tiempo el popover de reacciones
   const handleMouseEnterOrLeave = (isEnter) => {
@@ -67,7 +75,7 @@ export const ButtonsReaction = ({ idPost, setReactionsState }) => {
   const handleClick = (reaction) => {
     actionAdd(idPost, {
       type: reaction,
-      idAuthor: 'KWfShEgVFQoLdDoULkw9',
+      idAuthor: stateUser.id,
     });
   };
 
@@ -82,28 +90,6 @@ export const ButtonsReaction = ({ idPost, setReactionsState }) => {
           handleMouseEnterOrLeave(false);
         }}
       >
-        {/* {data?.length > 0 ? data.filter((value) => {
-          if (value?.idAuthor === 'KWfShEgVFQoLdDoULkw9') {
-            if (value?.type === constantsApp.REACTION_LIKE)
-              return (
-                <>
-                  <img src={likeIcon} alt='like' /> Me Gusta
-                </>
-              );
-          } else if (value?.type === constantsApp.REACTION_DISLIKE) {
-            return (
-              <>
-                <img src={dislikeIcon} alt='dislike' /> No me Gusta
-              </>
-            );
-          } else if (value?.type === constantsApp.REACTION_AMAZING) {
-            return (
-              <>
-                <img src={amazingIcon} alt='amazing' /> Asombroso
-              </>
-            );
-          }
-        }) : 'Reacccionar'} */}
         {myReaction === constantsApp.REACTION_LIKE && (
           <>
             <img src={likeIcon} alt='like' /> Me Gusta
@@ -143,7 +129,6 @@ export const ButtonsReaction = ({ idPost, setReactionsState }) => {
           onClick={() => handleClick(constantsApp.REACTION_AMAZING)}
         />
       </div>
-      <p>Comentar</p>
     </div>
   );
 };

@@ -1,3 +1,8 @@
+.msgInfoAddComment{
+  padding: $padding-item;
+  background-color: $third;
+}
+
 .post-banner {
   background-color: $primary;
   height: $banner-h;
@@ -22,6 +27,18 @@
     font-weight: bold;
     &:hover {
       color: $secondary-hover;
+    }
+  }
+  .user-logged{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    img{
+      width: 24px;
+      margin-left: 5px;
+      cursor: pointer;
     }
   }
 }

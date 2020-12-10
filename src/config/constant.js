@@ -1,10 +1,6 @@
 export const constantsApp = {
 	//RUTAS
 	ROUTE_POSTS: '/',
-/* 	ROUTE_POST_CREATE: '/productos/crear',
-	ROUTE_POST_VIEW: '/productos/:productId', */
-	ROUTE_LOGIN: '/iniciar-sesion',
-	ROUTE_ACCOUNT: '/mi-cuenta',
 	ROUTE_ERROR: '/error',
 
 	//ACCIONES A EJECUTAR EN EL CRUD
@@ -24,4 +20,7 @@ export const constantsApp = {
 	REACTION_LIKE: 'like',
 	REACTION_DISLIKE: 'dislike',
 	REACTION_AMAZING: 'amazing',
+
+	//PROPIEDA PARA VALIDAR LOGIN
+	IS_LOGGED: 'isLoggedIn'
 };

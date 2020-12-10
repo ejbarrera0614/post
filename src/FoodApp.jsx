@@ -9,6 +9,7 @@ import { ContentLoading } from './components/commons/ContentLoading';
 
 import './styles/styles.scss';
 
+const initialStateUser = {[constantsApp.IS_LOGGED]: false}
 export const FoodApp = () => {
   const [stateModal, setStateModal] = useState({
     isShow: false,
@@ -16,7 +17,7 @@ export const FoodApp = () => {
     desc: '',
     icon: '',
   });
-  const [stateUser, setStateUser] = useState({});
+  const [stateUser, setStateUser] = useState(initialStateUser);
   const { isShow, title, desc, icon } = stateModal;
   useEffect(() => {
     isShow &&
@@ -30,11 +31,15 @@ export const FoodApp = () => {
   }, [stateModal]);
   const { data: lang, loading } = useFetch(constantsApp.ENDPOINT_LANG_ES);
 
+  const logout = ()=>{
+    setStateUser(initialStateUser)
+  }
+
   return (
     <>
       <ContentLoading isLoading={loading}>
         <AppContextProvider
-          value={{ stateModal, setStateModal, lang, stateUser, setStateUser }}
+          value={{ stateModal, setStateModal, lang, stateUser, setStateUser,logout }}
         >
           <AppRouter />
         </AppContextProvider>

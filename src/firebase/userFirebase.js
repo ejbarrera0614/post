@@ -22,6 +22,7 @@ export const useLogin = () => {
             id: data.id,
             userName: data.userName,
             isAdmin: data.isAdmin,
+            isLoggedIn: true
           };
         }
       });
@@ -84,9 +85,17 @@ export const useRegister = () => {
           });
           setStateModal({
             title: 'Estado creado',
-            desc: 'Se ha creado la publicación',
+            desc: 'Se ha registrado exitosamente.',
             isShow: true,
           });
+          setStateUser({
+              id: ref.id,
+              userName: payload.userName,
+              isAdmin: false,
+              isLoggedIn: true
+          })
+        }).catch((error)=>{
+            console.log(error);
         });
       })
       .catch(() => {
@@ -99,13 +108,13 @@ export const useRegister = () => {
         setStateModal({
           isShow: true,
           title: 'Ocurrió un error.',
-          desc: 'No se pudo crear la publicación, intenta más tarde.',
+          desc: 'No se pudo crear el usuario, intenta más tarde.',
           icon: 'error',
         });
       });
   };
 
-  const { setStateModal } = useContext(AppContext);
+  const { setStateModal, setStateUser } = useContext(AppContext);
   const [state, setState] = useState({
     action,
     loading: false,

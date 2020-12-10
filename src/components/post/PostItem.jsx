@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 //hooks
 import { useForm } from '../../hooks/useForm';
 //components
@@ -9,12 +9,16 @@ import userICon from '../../images/userIcon.png';
 import { useAddComment, useGetComments } from '../../firebase/commentsFirebase';
 import { ButtonsReaction } from './ButtonsReaction';
 import { constantsApp } from '../../config/constant';
+import AppContext from '../../context/AppContext';
 
 export const PostItem = ({ id, desc, nameAuthor, date }) => {
   const [reactionsState, setReactionsState] = useState({
     [constantsApp.REACTION_AMAZING]: 0,
     [constantsApp.REACTION_DISLIKE]: 0,
-    [constantsApp.REACTION_LIKE]: 0,});
+    [constantsApp.REACTION_LIKE]: 0,
+  });
+  const { stateUser } = useContext(AppContext);
+
   //hook para el formulario de agrgar comentario
   const [value, handleInputChange, reset] = useForm({ comment: '' });
   const { action: actionGet, data } = useGetComments(id);
@@ -39,8 +43,8 @@ export const PostItem = ({ id, desc, nameAuthor, date }) => {
     actionAdd(id, {
       date: new Date(),
       desc: value.comment,
-      idAuthor: 'KWfShEgVFQoLdDoULkw8',
-      nameAuthor: 'Admin',
+      idAuthor: stateUser.id,
+      nameAuthor: stateUser.userName,
     });
     reset();
   };
@@ -90,33 +94,36 @@ export const PostItem = ({ id, desc, nameAuthor, date }) => {
           </p>
         </div>
 
-        <div className='comments-list'>
-          {data &&
-            data.map((item, index) => {
+        {Object.keys(data).length > 0 && (
+          <div className='comments-list'>
+            {data.map((item, index) => {
               return (
                 <div key={item.id}>
                   <PostItemComment {...item} index={index} />
                 </div>
               );
             })}
-        </div>
+          </div>
+        )}
 
-        <form onSubmit={handleSubmit} className={`comment-form `}>
-          <textarea
-            name='comment'
-            placeholder='Escribe un comentario'
-            autoComplete='off'
-            rows='1'
-            className='comment'
-            value={value.comment}
-            onChange={handleInputChange}
-          ></textarea>
-          <ContentLoading isLoading={false}>
-            <button type='submit' disabled={!value.comment}>
-              <span>Publicar</span>
-            </button>
-          </ContentLoading>
-        </form>
+        {stateUser.isLoggedIn ? (
+          <form onSubmit={handleSubmit} className={`comment-form `}>
+            <textarea
+              name='comment'
+              placeholder='Escribe un comentario'
+              autoComplete='off'
+              rows='1'
+              className='comment'
+              value={value.comment}
+              onChange={handleInputChange}
+            ></textarea>
+            <ContentLoading isLoading={false}>
+              <button type='submit' disabled={!value.comment}>
+                <span>Publicar</span>
+              </button>
+            </ContentLoading>
+          </form>
+        ): <p className="msgInfoAddComment">Inicia sesión para poder comentar</p> }
       </div>
     </>
   );
