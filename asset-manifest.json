@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/publicaciones/static/css/main.f282ac5a.chunk.css",
-    "main.js": "/publicaciones/static/js/main.d0229f94.chunk.js",
-    "main.js.map": "/publicaciones/static/js/main.d0229f94.chunk.js.map",
+    "main.css": "/publicaciones/static/css/main.9845bc8d.chunk.css",
+    "main.js": "/publicaciones/static/js/main.29c4839e.chunk.js",
+    "main.js.map": "/publicaciones/static/js/main.29c4839e.chunk.js.map",
     "runtime-main.js": "/publicaciones/static/js/runtime-main.b56dfd21.js",
     "runtime-main.js.map": "/publicaciones/static/js/runtime-main.b56dfd21.js.map",
     "static/js/2.432cab4e.chunk.js": "/publicaciones/static/js/2.432cab4e.chunk.js",
     "static/js/2.432cab4e.chunk.js.map": "/publicaciones/static/js/2.432cab4e.chunk.js.map",
     "index.html": "/publicaciones/index.html",
-    "static/css/main.f282ac5a.chunk.css.map": "/publicaciones/static/css/main.f282ac5a.chunk.css.map",
+    "static/css/main.9845bc8d.chunk.css.map": "/publicaciones/static/css/main.9845bc8d.chunk.css.map",
     "static/js/2.432cab4e.chunk.js.LICENSE.txt": "/publicaciones/static/js/2.432cab4e.chunk.js.LICENSE.txt",
     "static/media/amazing.8fe6536c.svg": "/publicaciones/static/media/amazing.8fe6536c.svg",
     "static/media/dislike.0ac9267e.svg": "/publicaciones/static/media/dislike.0ac9267e.svg",
@@ -19,7 +19,7 @@
   "entrypoints": [
     "static/js/runtime-main.b56dfd21.js",
     "static/js/2.432cab4e.chunk.js",
-    "static/css/main.f282ac5a.chunk.css",
-    "static/js/main.d0229f94.chunk.js"
+    "static/css/main.9845bc8d.chunk.css",
+    "static/js/main.29c4839e.chunk.js"
   ]
 }
