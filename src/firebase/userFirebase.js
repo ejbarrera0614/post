@@ -3,26 +3,35 @@ import { constantsApp } from '../config/constant';
 
 import AppContext from '../context/AppContext';
 import db from './config';
-const collection = db.collection(constantsApp.COLLECTION_POST);
+const collection = db.collection(constantsApp.COLLECTION_USERS);
 
-export const useGetAllPost = () => {
-  const actionGet = async () => {
+export const useLogin = () => {
+  const actionGet = async ({ userName, password }) => {
     try {
-      const querySnapshot = await collection.orderBy('date', 'desc').get();
-      const post = [];
-      querySnapshot.forEach((postSnap) => {
-        post.push({
-          id: postSnap.id,
-          ...postSnap.data(),
-        });
+      const querySnapshot = await collection
+        .where('userName', '==', userName)
+        .where('password', '==', password)
+        .limit(1)
+        .get();
+      let user = {};
+      querySnapshot.forEach((userSnap) => {
+        const data = userSnap.data();
+        console.log(data);
+        if (data) {
+          user = {
+            id: data.id,
+            userName: data.userName,
+            isAdmin: data.isAdmin,
+          };
+        }
       });
       /**
        * Validacion que evita que se mute el estado en caso que el componente que llamo este hook sea desmontado
        */
       if (isMounted.current) {
+        setStateUser(user);
         setState({
           ...state,
-          data: post,
           loading: false,
           error: null,
         });
@@ -31,24 +40,23 @@ export const useGetAllPost = () => {
       if (isMounted.current) {
         setState({
           ...state,
-          data: null,
           loading: false,
           error: error,
         });
       }
     }
   };
+
   //Ref para evitar que se genere un error al desmontarse un componente antes que la peticion responda
   const [state, setState] = useState({
     action: actionGet,
-    data: [],
     loading: true,
     error: null,
   });
+  const { setStateUser } = useContext(AppContext);
   const isMounted = useRef(true);
 
   useEffect(() => {
-    actionGet();
     return () => {
       isMounted.current = false;
     };
@@ -58,7 +66,7 @@ export const useGetAllPost = () => {
   return state;
 };
 
-export const useAddPost = () => {
+export const useRegister = () => {
   const action = async (payload) => {
     setState({
       ...state,

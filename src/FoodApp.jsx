@@ -16,6 +16,7 @@ export const FoodApp = () => {
     desc: '',
     icon: '',
   });
+  const [stateUser, setStateUser] = useState({});
   const { isShow, title, desc, icon } = stateModal;
   useEffect(() => {
     isShow &&
@@ -32,7 +33,9 @@ export const FoodApp = () => {
   return (
     <>
       <ContentLoading isLoading={loading}>
-        <AppContextProvider value={{ stateModal, setStateModal, lang }}>
+        <AppContextProvider
+          value={{ stateModal, setStateModal, lang, stateUser, setStateUser }}
+        >
           <AppRouter />
         </AppContextProvider>
       </ContentLoading>

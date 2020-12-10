@@ -18,7 +18,7 @@ export const constantsApp = {
 	COLLECTION_POST: 'post-test',
 	COLLECTION_COMMENTS: 'comments',
 	COLLECTION_REACTIONS: 'reactions',
-	COLLECTION_USERS: 'user-test',
+	COLLECTION_USERS: 'users',
 
 	//REACTIONS
 	REACTION_LIKE: 'like',

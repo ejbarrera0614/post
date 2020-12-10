@@ -43,6 +43,7 @@ button {
   min-width: $min-width-inputs;
   padding-right: $padding-item;
   padding-left: $padding-item;
+  color: $primary;
   &:hover:not([disabled]) {
     background-color: darken($color: $secondary, $amount: 10);
   }
