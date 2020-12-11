@@ -1,6 +1,8 @@
 # Publicaciones
 
 Sitio web donde puedes registrarse, crear publicaciones, ver, comentar y reaccionar a publicaciones de otros usuarios. 
+Se utiliza para la persistencia de datos firebase, sin la utilidad de ver los cambios de datos en tiempo real, esto por
+llevar un enfoque a lo que es una aplicación  que consume servicios rest y una base de datos relacional
 
 ## Comenzando 🚀
 
