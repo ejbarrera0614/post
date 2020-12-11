@@ -9,11 +9,11 @@ import {
 } from '../../firebase/reactionsFirebase';
 import { constantsApp } from '../../config/constant';
 import AppContext from '../../context/AppContext';
-export const ButtonsReaction = ({ idPost, setReactionsState }) => {
+export const ButtonsReaction = ({ idPublication, setReactionsState }) => {
   const [myReaction, setMyReaction] = useState('');
   const { stateUser } = useContext(AppContext);
 
-  const { action: actionGet, data } = useGetReactions(idPost);
+  const { action: actionGet, data } = useGetReactions(idPublication);
   const {
     action: actionAdd,
     loading: loadingAdd,
@@ -48,10 +48,19 @@ export const ButtonsReaction = ({ idPost, setReactionsState }) => {
   }, [data]);
 
   useEffect(() => {
-    data.filter(({ type, idAuthor }) => {
-      if (idAuthor === stateUser.id) setMyReaction(type);
-    });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    let BreakException = {};
+    try {
+      data.forEach(({ type, idAuthor }) => {
+        if (idAuthor === stateUser.id) {
+          setMyReaction(type);
+          throw BreakException; //Sirve para parar el ciclo
+        }
+      });
+    } catch (e) {
+      if (e !== BreakException) throw e;
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stateUser]);
 
   //Para mantener o quitar en determinado tiempo el popover de reacciones
@@ -59,28 +68,35 @@ export const ButtonsReaction = ({ idPost, setReactionsState }) => {
     if (isEnter) {
       isHover = true;
       document
-        .querySelector(`#popover-${idPost}`)
+        .querySelector(`#popover-${idPublication}`)
         .classList.add('active-hover');
     } else {
       isHover &&
         setTimeout(() => {
           isHover = false;
           document
-            .querySelector(`#popover-${idPost}`)
+            .querySelector(`#popover-${idPublication}`)
             .classList.remove('active-hover');
         }, 1000);
     }
   };
 
   const handleClick = (reaction) => {
-    actionAdd(idPost, {
+    actionAdd(idPublication, {
       type: reaction,
       idAuthor: stateUser.id,
     });
+    !isHover &&
+      setTimeout(() => {
+        isHover = false;
+        document
+          .querySelector(`#popover-${idPublication}`)
+          .classList.remove('active-hover');
+      }, 1000);
   };
 
   return (
-    <div className='post-item-buttons popover'>
+    <div className='publication-item-buttons popover'>
       <p
         className='trigger-popover'
         onMouseEnter={() => {
@@ -107,7 +123,7 @@ export const ButtonsReaction = ({ idPost, setReactionsState }) => {
         )}
         {!myReaction && 'Reacccionar'}
       </p>
-      <div id={`popover-${idPost}`} className='popover-content'>
+      <div id={`popover-${idPublication}`} className='popover-content'>
         <div className='arrow'></div>
 
         <img

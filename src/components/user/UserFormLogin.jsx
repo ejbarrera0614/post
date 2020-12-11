@@ -1,38 +1,34 @@
-import React from 'react';
-import { useLogin, useRegister } from '../../firebase/userFirebase';
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { constantsApp } from '../../config/constant';
+import { useLogin } from '../../firebase/userFirebase';
 import { useForm } from '../../hooks/useForm';
 import { ContentLoading } from '../commons/ContentLoading';
 
-export const UserForm = () => {
+export const UserFormLogin = () => {
   const [value, handleInputChange, reset] = useForm({
     userName: '',
     password: '',
   });
 
-  const {
-    action: actionLogin,
-    loading
-  } = useLogin();
-  const { action: actionRegister, loading: loadingRegister, isFirtsRender } = useRegister();
+  const { action: actionLogin, loading } = useLogin();
+
+  useEffect(() => {
+    if (loading ) reset();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     actionLogin(value);
-    reset();
-  };
-
-  const handleClickRegister = (e) => {
-    e.preventDefault();
-    actionRegister({...value, isAdmin:false, dateCreated: new Date()});
-    reset();
   };
 
   return (
     <>
       <form onSubmit={handleSubmit} className='form-login'>
+        <p className='login-title'>Inicia sesión</p>
         <div className='section-inputs'>
           <div className='input-group'>
-            <label htmlFor='user'>Usuario:</label>
             <input
               type='text'
               id='user'
@@ -40,31 +36,29 @@ export const UserForm = () => {
               autoComplete='off'
               onChange={handleInputChange}
               value={value.userName}
-              placeholder='Ingresa el usuario'
+              placeholder='Usuario'
             />
           </div>
           <div className='input-group'>
-            <label htmlFor='pass'>Password:</label>
             <input
               type='password'
               id='pass'
               name='password'
               autoComplete='off'
               onChange={handleInputChange}
-              placeholder='Ingresa la contraseña'
+              placeholder='Contraseña'
               value={value.password}
             />
           </div>
         </div>
-        <ContentLoading isLoading={!loading}>
+        <ContentLoading isLoading={loading }>
           <div className='section-buttons'>
             <button type='submit' disabled={!value.userName || !value.password}>
               Iniciar sesión
             </button>
-            <p>o</p>
-            <button type='button' onClick={handleClickRegister} disabled={!value.userName || !value.password}>
-              Registrarse
-            </button>
+            <p>
+              ¿Eres nuevo? <Link to={constantsApp.ROUTE_REGISTER}>Regístrese</Link>
+            </p>
           </div>
         </ContentLoading>
       </form>

@@ -1,4 +1,5 @@
-.form-login {
+.form-login,
+.form-register {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -7,50 +8,56 @@
   background-color: $primary;
   width: 100%;
   padding-top: $padding-item;
-  margin-bottom: $margin-betwwen-post;
+  margin-bottom: $margin-betwwen-publication;
   border: $border-color;
-  border-radius: $border-post;
-  -webkit-border-radius: $border-post;
-  -moz-border-radius: $border-post;
+  border-radius: $border-publication;
+  -webkit-border-radius: $border-publication;
+  -moz-border-radius: $border-publication;
   box-shadow: $box-shadow;
   -webkit-box-shadow: $box-shadow;
   -moz-box-shadow: $box-shadow;
+  .login-title,
+  .register-title {
+    text-shadow: 1px 1px 1px lighten($color: $secondary, $amount: 30);
+    color: $secondary;
+    font-size: $size-titles;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: bold;
+  }
   .section-inputs {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     max-width: 248px;
+    margin-top: 15px;
     .input-group {
       display: flex;
       flex-direction: column;
       margin-bottom: 15px;
-      label{
-        margin-bottom: 5px;
-        margin-left: 5px;
-      }
-      input {
-        outline: none;
-        height: 36px;
-        padding: $padding-inputs;
-        border: $border-color;
-        border-radius: $border-post;
-        -webkit-border-radius: $border-post;
-        -moz-border-radius: $border-post;
-        box-shadow: $box-shadow;
-        -webkit-box-shadow: $box-shadow;
-        -moz-box-shadow: $box-shadow;
+      .pass-error{
+        margin-top: 5px;
+        font-size: 0.85em;
+        color: #f65764;
       }
     }
   }
   .section-buttons {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     p {
-      margin-left: 5px;
-      margin-right: 5px;
+      font-size: 0.7em;
+      margin: 5px 5px 0px 5px;
+      a {
+        color: $secondary;
+        cursor: pointer;
+        &:hover {
+          color: $secondary-hover;
+        }
+      }
     }
   }
 }

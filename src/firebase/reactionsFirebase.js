@@ -59,7 +59,7 @@ export const useGetReactions = (id) => {
   return state;
 };
 export const useAddReaction = () => {
-  const action = (idPost, payload) => {
+  const action = (idPublication, payload) => {
 
     if (!payload.idAuthor) {
       setStateModal({
@@ -76,7 +76,7 @@ export const useAddReaction = () => {
       loading: true,
     });
     collection
-      .doc(idPost)
+      .doc(idPublication)
       .collection(constantsApp.COLLECTION_REACTIONS)
       .doc(payload.idAuthor)
       .set(payload)

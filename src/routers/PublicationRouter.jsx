@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
-import { PostList } from '../components/post/PostList';
+import { PublicationListContent } from '../components/publications/PublicationListContent';
 import { constantsApp } from '../config/constant';
 import AppContext from '../context/AppContext';
 import exit from '../images/exit.svg';
-export const PostRouter = () => {
+export const PublicationRouter = () => {
   const { stateUser, logout } = useContext(AppContext);
 
   const handleClick = (e) => {
@@ -14,8 +14,8 @@ export const PostRouter = () => {
 
   return (
     <>
-      <header className='post-banner'>
-        <Link to={constantsApp.ROUTE_POSTS} className='post-title'>
+      <header className='publication-banner'>
+        <Link to={constantsApp.ROUTE_HOME} className='publication-title'>
           Publicaciones
         </Link>
         {stateUser.isLoggedIn && (
@@ -28,9 +28,9 @@ export const PostRouter = () => {
         )}
       </header>
 
-      <section className='post-section'>
+      <section className='publication-section'>
         <Switch>
-          <Route exact path={constantsApp.ROUTE_POSTS} component={PostList} />
+          <Route exact path={[constantsApp.ROUTE_HOME, constantsApp.ROUTE_REGISTER]} component={PublicationListContent} />
         </Switch>
       </section>
     </>

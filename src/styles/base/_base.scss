@@ -11,6 +11,7 @@
   box-sizing: border-box;
 }
 
+//ELEMENTS HTML
 html,
 body {
   height: 100vh;
@@ -56,6 +57,30 @@ button {
   }
 }
 
+input {
+  outline: none;
+  height: 36px;
+  width: 248px;
+  padding: $padding-inputs;
+  border: $border-color;
+  border-radius: $border-publication;
+  -webkit-border-radius: $border-publication;
+  -moz-border-radius: $border-publication;
+  box-shadow: $box-shadow;
+  -webkit-box-shadow: $box-shadow;
+  -moz-box-shadow: $box-shadow;
+  &:hover{
+    border-color: $secondary;
+  }
+  &:focus{
+    border-color: $secondary-hover;
+  }
+  &::placeholder{
+    opacity: 0.5;
+  }
+}
+
+//CLASS
 .main {
   width: 100%;
   height: auto;

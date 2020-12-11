@@ -28,7 +28,7 @@
     transition: visibility 0s, opacity 0.5s linear;
     transition: 1s;
     box-shadow: $box-shadow;
-    border-radius: $border-post;
+    border-radius: $border-publication;
     .arrow {
       left: 45%;
       border-width: $border-row-width;
@@ -82,7 +82,7 @@
   }
 }
 
-.post-item-buttons:hover + .popover {
+.publication-item-buttons:hover + .popover {
   visibility: visible;
 }
 

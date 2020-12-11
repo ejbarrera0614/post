@@ -5,15 +5,15 @@ import AppContext from '../context/AppContext';
 import db from './config';
 const collection = db.collection(constantsApp.COLLECTION_POST);
 
-export const useGetAllPost = () => {
+export const useGetAllPublication = () => {
   const actionGet = async () => {
     try {
       const querySnapshot = await collection.orderBy('date', 'desc').get();
-      const post = [];
-      querySnapshot.forEach((postSnap) => {
-        post.push({
-          id: postSnap.id,
-          ...postSnap.data(),
+      const publication = [];
+      querySnapshot.forEach((publicationSnap) => {
+        publication.push({
+          id: publicationSnap.id,
+          ...publicationSnap.data(),
         });
       });
       /**
@@ -22,7 +22,7 @@ export const useGetAllPost = () => {
       if (isMounted.current) {
         setState({
           ...state,
-          data: post,
+          data: publication,
           loading: false,
           error: null,
         });
@@ -58,7 +58,7 @@ export const useGetAllPost = () => {
   return state;
 };
 
-export const useAddPost = () => {
+export const useAddPublication = () => {
   const action = async (payload) => {
     setState({
       ...state,

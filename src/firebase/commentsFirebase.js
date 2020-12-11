@@ -60,13 +60,13 @@ export const useGetComments = (id) => {
   return state;
 };
 export const useAddComment = () => {
-  const action = (idPost, payload) => {
+  const action = (idPublication, payload) => {
     setState({
       ...state,
       loading: true,
     });
     collection
-      .doc(idPost)
+      .doc(idPublication)
       .collection(constantsApp.COLLECTION_COMMENTS)
       .add(payload)
       .then((ref) => {

@@ -1,6 +1,6 @@
 {
-  "homepage": "https://ejbarrera0614.github.io/publicaciones",
-  "name": "post-app",
+  "homepage": "https://ejbarrera0614.github.io/publicaciones/#/",
+  "name": "publicaciones-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

@@ -1,6 +1,7 @@
 export const constantsApp = {
 	//RUTAS
-	ROUTE_POSTS: '/',
+	ROUTE_HOME: '/',
+	ROUTE_REGISTER: '/registro',
 	ROUTE_ERROR: '/error',
 
 	//ACCIONES A EJECUTAR EN EL CRUD
@@ -11,7 +12,7 @@ export const constantsApp = {
 	ENDPOINT_LANG_ES: 'data/lang-es.json',
 
 	//COLLECTIONS FIRESTORE
-	COLLECTION_POST: 'post-test',
+	COLLECTION_POST: 'publication-test',
 	COLLECTION_COMMENTS: 'comments',
 	COLLECTION_REACTIONS: 'reactions',
 	COLLECTION_USERS: 'users',
