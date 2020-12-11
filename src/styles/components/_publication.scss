@@ -81,6 +81,7 @@
         padding-left: $padding-item;
         padding-right: $padding-item;
       }
+      .buttons-reaction-mobile,
       .publication-item-content {
         display: flex;
         flex-direction: row;
@@ -96,10 +97,14 @@
             margin-bottom: $margin-betwwen-publication;
           }
         }
+        
         .publication-item-buttons {
           display: flex;
           flex-direction: row;
           color: $secondary;
+          @media (max-width: $width-md-px) {
+            display: none;
+          }
           & > p {
             &:nth-child(1) {
               margin-right: $margin-betwwen-publication;
@@ -160,6 +165,23 @@
     button {
       color: $primary;
       margin: 7px;
+    }
+  }
+}
+
+.focusToTextActive {
+  &:hover {
+    color: $secondary !important;
+    cursor: unset !important;
+    opacity: 0.7;
+  }
+}
+
+.buttons-reaction-mobile {
+  @media (max-width: 768px) {
+  
+    .publication-item-buttons{
+      display: flex !important;
     }
   }
 }

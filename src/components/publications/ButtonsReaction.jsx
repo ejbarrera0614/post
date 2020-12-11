@@ -3,22 +3,15 @@ import React, { useContext, useEffect, useState } from 'react';
 import likeIcon from '../../images/like.svg';
 import dislikeIcon from '../../images/dislike.svg';
 import amazingIcon from '../../images/amazing.svg';
-import {
-  useAddReaction,
-  useGetReactions,
-} from '../../firebase/reactionsFirebase';
+import { useAddReaction, useGetReactions } from '../../firebase/reactionsFirebase';
 import { constantsApp } from '../../config/constant';
 import AppContext from '../../context/AppContext';
-export const ButtonsReaction = ({ idPublication, setReactionsState }) => {
+export const ButtonsReaction = ({ idPublication, setReactionsState, textAreaCommentRef }) => {
   const [myReaction, setMyReaction] = useState('');
   const { stateUser } = useContext(AppContext);
 
   const { action: actionGet, data } = useGetReactions(idPublication);
-  const {
-    action: actionAdd,
-    loading: loadingAdd,
-    isFirtsRender,
-  } = useAddReaction();
+  const { action: actionAdd, loading: loadingAdd, isFirtsRender } = useAddReaction();
   let isHover = false;
 
   useEffect(() => {
@@ -47,13 +40,14 @@ export const ButtonsReaction = ({ idPublication, setReactionsState }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
+  //Filtra la reacción del usuario de la publicaciójn
   useEffect(() => {
     let BreakException = {};
     try {
       data.forEach(({ type, idAuthor }) => {
         if (idAuthor === stateUser.id) {
           setMyReaction(type);
-          throw BreakException; //Sirve para parar el ciclo
+          throw BreakException; //Para el ciclo de iteración del forEach
         }
       });
     } catch (e) {
@@ -67,20 +61,17 @@ export const ButtonsReaction = ({ idPublication, setReactionsState }) => {
   const handleMouseEnterOrLeave = (isEnter) => {
     if (isEnter) {
       isHover = true;
-      document
-        .querySelector(`#popover-${idPublication}`)
-        .classList.add('active-hover');
+      document.querySelector(`#popover-${idPublication}`).classList.add('active-hover');
     } else {
       isHover &&
         setTimeout(() => {
           isHover = false;
-          document
-            .querySelector(`#popover-${idPublication}`)
-            .classList.remove('active-hover');
+          document.querySelector(`#popover-${idPublication}`).classList.remove('active-hover');
         }, 1000);
     }
   };
 
+  //Da click en alguna de las reacciones en el popover
   const handleClick = (reaction) => {
     actionAdd(idPublication, {
       type: reaction,
@@ -89,10 +80,15 @@ export const ButtonsReaction = ({ idPublication, setReactionsState }) => {
     !isHover &&
       setTimeout(() => {
         isHover = false;
-        document
-          .querySelector(`#popover-${idPublication}`)
-          .classList.remove('active-hover');
+        document.querySelector(`#popover-${idPublication}`).classList.remove('active-hover');
       }, 1000);
+  };
+
+  const focustextArea = (e) => {
+    e.preventDefault();
+    if (stateUser[constantsApp.IS_LOGGED]) {
+      textAreaCommentRef.current.focus();
+    }
   };
 
   return (
@@ -123,27 +119,15 @@ export const ButtonsReaction = ({ idPublication, setReactionsState }) => {
         )}
         {!myReaction && 'Reacccionar'}
       </p>
+      <p onClick={focustextArea} className={!stateUser[constantsApp.IS_LOGGED] && 'focusToTextActive'} >Comentar</p>
       <div id={`popover-${idPublication}`} className='popover-content'>
         <div className='arrow'></div>
 
-        <img
-          src={likeIcon}
-          alt='like'
-          className='ml-10'
-          onClick={() => handleClick(constantsApp.REACTION_LIKE)}
-        />
+        <img src={likeIcon} alt='like' className='ml-10' onClick={() => handleClick(constantsApp.REACTION_LIKE)} />
 
-        <img
-          src={dislikeIcon}
-          alt='dislike'
-          onClick={() => handleClick(constantsApp.REACTION_DISLIKE)}
-        />
+        <img src={dislikeIcon} alt='dislike' onClick={() => handleClick(constantsApp.REACTION_DISLIKE)} />
 
-        <img
-          src={amazingIcon}
-          alt='amazing'
-          onClick={() => handleClick(constantsApp.REACTION_AMAZING)}
-        />
+        <img src={amazingIcon} alt='amazing' onClick={() => handleClick(constantsApp.REACTION_AMAZING)} />
       </div>
     </div>
   );

@@ -41,7 +41,7 @@ export const PublicationCreate = ({ getAllPublication }) => {
             <form onSubmit={handleSubmit} className='publication-form'>
               <textarea
                 name='publication'
-                placeholder='Escribe aquí tu estado'
+                placeholder='Escriba aquí su estado'
                 autoComplete='off'
                 className='publication-text'
                 value={value.publication}

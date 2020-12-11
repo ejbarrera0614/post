@@ -5,6 +5,9 @@ import { useLogin } from '../../firebase/userFirebase';
 import { useForm } from '../../hooks/useForm';
 import { ContentLoading } from '../commons/ContentLoading';
 
+/**
+ * Formulario de login que se importa en el componente .publications/PublicationCreate
+ */
 export const UserFormLogin = () => {
   const [value, handleInputChange, reset] = useForm({
     userName: '',

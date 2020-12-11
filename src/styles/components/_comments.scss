@@ -31,6 +31,30 @@
   background-color: $third;
   padding: $padding-item;
 
+  textarea {
+    &:hover {
+      border: 1px solid $secondary;
+      border-right-width: 0px;
+      & + button {
+        border: 1px solid $secondary;
+        border-left-width: 0px;
+        border-radius: 0px;
+      }
+    }
+    &:focus {
+      border: 1px solid $secondary-hover;
+      border-right-width: 0px;
+      & + button {
+        border: 1px solid $secondary-hover;
+        border-left-width: 0px;
+        border-radius: 0px;
+      }
+    }
+    &::placeholder {
+      opacity: 0.5;
+    }
+  }
+
   button {
     -webkit-appearance: none;
     -moz-appearance: none;

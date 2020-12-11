@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 //components
 import { PublicationComment } from './PublicationComment';
 import { PublicationAddComment } from './PublicationAddComment';
@@ -12,13 +12,15 @@ import { constantsApp } from '../../config/constant';
  * Componente que contiene la estructura de la publciacion y un map de comentarios y el componente de agregar comentario
  */
 export const PublicationContent = ({ id, desc, nameAuthor, date }) => {
+  //El estado se actualiza en el componente hijo ButtonsReaction
   const [reactionsState, setReactionsState] = useState({
     [constantsApp.REACTION_AMAZING]: 0,
     [constantsApp.REACTION_DISLIKE]: 0,
     [constantsApp.REACTION_LIKE]: 0,
   });
+  const textAreaCommentRef = useRef();
   const { action: actionGet, data } = useGetComments(id);
-
+  //Se formatea porque desde firestore llega en un formato diferente
   const dateFormat = new Date(date?.toDate()).toLocaleDateString();
 
   return (
@@ -38,24 +40,18 @@ export const PublicationContent = ({ id, desc, nameAuthor, date }) => {
             <ButtonsReaction
               idPublication={id}
               setReactionsState={setReactionsState}
+              textAreaCommentRef={textAreaCommentRef}
             />
           </div>
         </div>
 
         <div className='publication-item-reaction'>
           <div className='reactions-group-circles'>
+            {/* Renderiza los circulos de reacciones con el número total de estos */}
             {reactionsState?.like > 0 && <div className='circle-likes'></div>}
-            {reactionsState?.dislike > 0 && (
-              <div className='circle-dislike'></div>
-            )}
-            {reactionsState?.amazing > 0 && (
-              <div className='circle-amazing'></div>
-            )}
-            <p>
-              {reactionsState?.amazing +
-                reactionsState?.like +
-                reactionsState?.dislike}
-            </p>
+            {reactionsState?.dislike > 0 && <div className='circle-dislike'></div>}
+            {reactionsState?.amazing > 0 && <div className='circle-amazing'></div>}
+            <p>{reactionsState?.amazing + reactionsState?.like + reactionsState?.dislike}</p>
           </div>
           <p>
             {data.length > 0 && (
@@ -65,7 +61,13 @@ export const PublicationContent = ({ id, desc, nameAuthor, date }) => {
             )}
           </p>
         </div>
-
+        <div className='buttons-reaction-mobile'>
+          <ButtonsReaction
+            idPublication={id}
+            setReactionsState={setReactionsState}
+            textAreaCommentRef={textAreaCommentRef}
+          />
+        </div>
         {Object.keys(data).length > 0 && (
           <div className='comments-list'>
             {data.map((item, index) => {
@@ -78,7 +80,7 @@ export const PublicationContent = ({ id, desc, nameAuthor, date }) => {
           </div>
         )}
 
-        <PublicationAddComment actionGet={actionGet} idPublication={id} />
+        <PublicationAddComment actionGet={actionGet} idPublication={id} textAreaCommentRef={textAreaCommentRef} />
       </div>
     </>
   );

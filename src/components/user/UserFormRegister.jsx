@@ -5,6 +5,9 @@ import { useRegister } from '../../firebase/userFirebase';
 import { useForm } from '../../hooks/useForm';
 import { ContentLoading } from '../commons/ContentLoading';
 
+/**
+ * Formulario de resgistro que se importa en el componente .publications/PublicationCreate
+ */
 export const UserFormRegister = () => {
   const [value, handleInputChange, reset] = useForm({
     userName: '',

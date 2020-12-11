@@ -5,7 +5,7 @@ import { useAddComment } from '../../firebase/commentsFirebase';
 import { useForm } from '../../hooks/useForm';
 //components
 import { ContentLoading } from '../commons/ContentLoading';
-export const PublicationAddComment = ({ actionGet, idPublication }) => {
+export const PublicationAddComment = ({ actionGet, idPublication, textAreaCommentRef }) => {
   const { stateUser } = useContext(AppContext);
 
   //hook para el formulario de agrgar comentario
@@ -47,6 +47,7 @@ export const PublicationAddComment = ({ actionGet, idPublication }) => {
       {stateUser.isLoggedIn ? (
         <form onSubmit={handleSubmit} className={`comment-form `}>
           <textarea
+          ref={textAreaCommentRef}
             name='comment'
             placeholder='Escribe un comentario'
             autoComplete='off'
