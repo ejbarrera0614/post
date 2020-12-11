@@ -17,6 +17,7 @@ export const PublicationContent = ({ id, desc, nameAuthor, date }) => {
     [constantsApp.REACTION_AMAZING]: 0,
     [constantsApp.REACTION_DISLIKE]: 0,
     [constantsApp.REACTION_LIKE]: 0,
+    myReaction: ''
   });
   const textAreaCommentRef = useRef();
   const { action: actionGet, data } = useGetComments(id);
@@ -37,11 +38,15 @@ export const PublicationContent = ({ id, desc, nameAuthor, date }) => {
             </div>
             <p>{desc}</p>
 
-            <ButtonsReaction
-              idPublication={id}
-              setReactionsState={setReactionsState}
-              textAreaCommentRef={textAreaCommentRef}
-            />
+            <div className='buttons-reaction-desk'>
+              <ButtonsReaction
+                idPublication={id}
+                isMobileID={false}
+                myReaction={reactionsState.myReaction}
+                setReactionsState={setReactionsState}
+                textAreaCommentRef={textAreaCommentRef}
+              />
+            </div>
           </div>
         </div>
 
@@ -61,7 +66,15 @@ export const PublicationContent = ({ id, desc, nameAuthor, date }) => {
             )}
           </p>
         </div>
-
+        <div className='buttons-reaction-mobile'>
+          <ButtonsReaction
+            idPublication={id}
+            isMobileID={true}
+            myReaction={reactionsState.myReaction}
+            setReactionsState={setReactionsState}
+            textAreaCommentRef={textAreaCommentRef}
+          />
+        </div>
         {Object.keys(data).length > 0 && (
           <div className='comments-list'>
             {data.map((item, index) => {

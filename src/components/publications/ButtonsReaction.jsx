@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import likeIcon from '../../images/like.svg';
 import dislikeIcon from '../../images/dislike.svg';
@@ -6,14 +6,13 @@ import amazingIcon from '../../images/amazing.svg';
 import { useAddReaction, useGetReactions } from '../../firebase/reactionsFirebase';
 import { constantsApp } from '../../config/constant';
 import AppContext from '../../context/AppContext';
-export const ButtonsReaction = ({ idPublication, setReactionsState, textAreaCommentRef }) => {
-  const [myReaction, setMyReaction] = useState('');
+export const ButtonsReaction = ({ idPublication, isMobileID, myReaction, setReactionsState, textAreaCommentRef }) => {
   const { stateUser } = useContext(AppContext);
 
   const { action: actionGet, data } = useGetReactions(idPublication);
   const { action: actionAdd, loading: loadingAdd, isFirtsRender } = useAddReaction();
   let isHover = false;
-
+  const idPopover = `popover-${idPublication}-${isMobileID ? 'mob' : 'desk'}`;
   useEffect(() => {
     if (!isFirtsRender && !loadingAdd) {
       actionGet();
@@ -27,7 +26,7 @@ export const ButtonsReaction = ({ idPublication, setReactionsState, textAreaComm
       (accum, { type, idAuthor }) => {
         if (!accum[type]) accum[type] = 0;
         accum[type] += 1;
-        if (idAuthor === stateUser.id) setMyReaction(type);
+        if (idAuthor === stateUser.id) accum.myReaction = type;
         return accum;
       },
       {
@@ -46,7 +45,8 @@ export const ButtonsReaction = ({ idPublication, setReactionsState, textAreaComm
     try {
       data.forEach(({ type, idAuthor }) => {
         if (idAuthor === stateUser.id) {
-          setMyReaction(type);
+          //myReaction
+          setReactionsState(values=>({...values, myReaction:type}));
           throw BreakException; //Para el ciclo de iteración del forEach
         }
       });
@@ -55,18 +55,18 @@ export const ButtonsReaction = ({ idPublication, setReactionsState, textAreaComm
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [stateUser]);
+  }, [stateUser, data]);
 
   //Para mantener o quitar en determinado tiempo el popover de reacciones
   const handleMouseEnterOrLeave = (isEnter) => {
     if (isEnter) {
       isHover = true;
-      document.querySelector(`#popover-${idPublication}`).classList.add('active-hover');
+      document.querySelector(`#${idPopover}`).classList.add('active-hover');
     } else {
       isHover &&
         setTimeout(() => {
           isHover = false;
-          document.querySelector(`#popover-${idPublication}`).classList.remove('active-hover');
+          document.querySelector(`#${idPopover}`).classList.remove('active-hover');
         }, 1000);
     }
   };
@@ -120,7 +120,7 @@ export const ButtonsReaction = ({ idPublication, setReactionsState, textAreaComm
         {!myReaction && 'Reacccionar'}
       </p>
       <p onClick={focustextArea} className={!stateUser[constantsApp.IS_LOGGED] && 'focusToTextActive'} >Comentar</p>
-      <div id={`popover-${idPublication}`} className='popover-content'>
+      <div id={idPopover} className='popover-content'>
         <div className='arrow'></div>
 
         <img src={likeIcon} alt='like' className='ml-10' onClick={() => handleClick(constantsApp.REACTION_LIKE)} />

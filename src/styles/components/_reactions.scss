@@ -127,3 +127,33 @@
     margin-left: 5px;
   }
 }
+
+.buttons-reaction-desk{
+  display: block;
+  @media (max-width: $width-md-px) {
+
+      display: none;
+
+  }
+}
+
+.buttons-reaction-mobile {
+  padding: 0 !important;
+  width: 100%;
+  display: none;
+  @media (max-width: $width-md-px) {
+    display: block;
+    .popover-content{
+      display: flex;
+      left: 9%;
+      bottom: 116%;
+    }
+  }
+  p {
+    width: 50%;
+    margin: 0 !important;
+    height: 57px;
+    justify-content: center;
+    border: $border-color;
+  }
+}
