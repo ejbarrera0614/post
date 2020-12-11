@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { constantsApp } from '../../config/constant';
 import { useRegister } from '../../firebase/userFirebase';
@@ -15,16 +15,21 @@ export const UserFormRegister = () => {
     passwordRepeat: '',
   });
   const { userName, password, passwordRepeat } = value;
+  const [showErrorPass, setshowErrorPass] = useState(false);
   const { action: actionRegister, loading: loadingRegister } = useRegister();
-
   useEffect(() => {
     if (!loadingRegister) reset();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadingRegister]);
 
+  useEffect(() => {
+    setshowErrorPass(password !== passwordRepeat);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [passwordRepeat]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    actionRegister({userName, password});
+    actionRegister({ userName, password });
   };
 
   return (
@@ -64,7 +69,7 @@ export const UserFormRegister = () => {
               placeholder='Repetir contraseña'
               value={passwordRepeat}
             />
-            { password !== passwordRepeat && <p className="pass-error" >Las contraseñas no coinciden</p> }
+            {showErrorPass && <p className='pass-error'>Las contraseñas no coinciden</p>}
           </div>
         </div>
         <ContentLoading isLoading={loadingRegister}>
