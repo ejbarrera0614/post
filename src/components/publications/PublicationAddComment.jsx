@@ -59,7 +59,7 @@ export const PublicationAddComment = ({ actionGet, idPublication, textAreaCommen
           ></textarea>
           <ContentLoading isLoading={false}>
             <button type='submit' disabled={!value.comment.trim()}>
-              <span>Publicar</span>
+              <span>Comentar</span>
             </button>
           </ContentLoading>
         </form>
