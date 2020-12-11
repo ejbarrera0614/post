@@ -61,13 +61,7 @@ export const PublicationContent = ({ id, desc, nameAuthor, date }) => {
             )}
           </p>
         </div>
-        <div className='buttons-reaction-mobile'>
-          <ButtonsReaction
-            idPublication={id}
-            setReactionsState={setReactionsState}
-            textAreaCommentRef={textAreaCommentRef}
-          />
-        </div>
+
         {Object.keys(data).length > 0 && (
           <div className='comments-list'>
             {data.map((item, index) => {
