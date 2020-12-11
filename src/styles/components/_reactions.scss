@@ -1,3 +1,17 @@
+.publication-item-buttons {
+  display: flex;
+  flex-direction: row;
+  color: $secondary;
+  & > p {
+    &:nth-child(1) {
+      margin-right: $margin-betwwen-publication;
+    }
+    &:hover {
+      color: $secondary-hover;
+    }
+    cursor: pointer;
+  }
+}
 .popover {
   position: relative;
   display: flex;
