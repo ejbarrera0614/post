@@ -11,7 +11,7 @@ import './styles/styles.scss';
 import { useSessionStorage } from './hooks/useSessionStorage';
 
 const initialStateUser = { [constantsApp.IS_LOGGED]: false };
-export const FoodApp = () => {
+export const PublicationApp = () => {
   const [stateModal, setStateModal] = useState({
     isShow: false,
     title: '',

@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { FoodApp } from './FoodApp';
+import { PublicationApp } from './PublicationApp';
 
 ReactDOM.render(
 	<React.StrictMode>
-		<FoodApp />
+		<PublicationApp />
 	</React.StrictMode>,
 	document.getElementById('root'),
 );
