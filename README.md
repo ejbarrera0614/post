@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+# Publicaciones
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Sitio web donde puedes registrarse, crear publicaciones, ver, comentar y reaccionar a publicaciones de otros usuarios. 
 
-## Available Scripts
+## Comenzando 🚀
 
-In the project directory, you can run:
+_Estas instrucciones le permitirán instalar y correr la aplicación en su máquina local._
 
-### `yarn start`
+Mira **Deployment** para conocer como desplegar el proyecto.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Pre-requisitos 📋
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+_Instalaciones necesarias_
 
-### `yarn test`
+#### NodeJS
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+_Instalar la versión LTS de NodeJS desde su sitio web [https://nodejs.org/es/](https://nodejs.org/es/)
 
-### `yarn build`
+### Instalación 🔧
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+_Para correr la aplicación en modo desarrollo en su máquina local debe ejcutar los siguientes scripts _
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+_Estando en la carpeta raíz del proyecto, ejecutar el siguiente comando para instalar las dependencias_
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+npm install
+```
 
-### `yarn eject`
+_Para iniciar el proyecto, ejecutar el siguiente comando, el cual inicia en el puerto 3000 por defecto_
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+npm start
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+_Abrir [http://localhost:3000](http://localhost:3000) en una ventana del navegador._
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Despliegue 📦
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+_Ejecutar el siguiente comando para generar los archivos de producción en la carpeta `build`_
 
-## Learn More
+```
+npm run build
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+_Ejecutar el siguiente comando para desplegar la aplicación con git-hub-pages en la URL [https://ejbarrera0614.github.io/publicaciones/#/](https://ejbarrera0614.github.io/publicaciones/#/)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+npm run deploy
+```
 
-### Code Splitting
+## Construido con 🛠️
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+_Las herramientras y librerías usadas en el proyecto son_
 
-### Analyzing the Bundle Size
+* [React] (https://es.reactjs.org/) - React en su versión 17.0.1
+* [Create React App](https://github.com/facebook/create-react-app) - El framework web usado
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Dependencias adicionales
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* [SweetAlert](https://sweetalert2.github.io/) - Usado para mostrar las modales en la aplicación
+* [node-sass](https://github.com/sass/node-sass) - Usado para compilar los archivos scss de la aplicación
+* [react-router](https://reactrouter.com/web/guides/quick-start) - Usado para manejar las rutas
+* [firebase] (https://www.npmjs.com/package/firebase) - Usado para manejar la persistencia de datos
+* [github pages](https://www.npmjs.com/package/gh-pages) - Usado para desplegar la aplicación de manera rapida con git hub
